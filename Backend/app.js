@@ -1,47 +1,47 @@
-// Import required modules
-const express = require('express');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const path = require("path");
+const fs = require("fs").promises;
 
 const app = express();
-const PORT = 3001; // Backend server will run on port 3001
+const PORT = 3001;
 
-// Enable CORS for cross-origin requests
-app.use(cors());
+// Serve static files
+app.use(express.static(path.resolve("public")));
 
-// Serve static files (if needed, e.g., from a public folder)
-app.use(express.static(path.join(__dirname, 'public')));
+// API endpoint to fetch a decision tree node by ID
+app.get("/api/decision-tree/:id", async (req, res) => {
+  try {
+    // Load the decision tree JSON from the public folder
+    const data = JSON.parse(
+      await fs.readFile(path.resolve("public/decision_tree.json"), "utf-8")
+    );
 
-// API Endpoint to fetch decision tree data
-app.get('/api/decision-tree', (req, res) => {
-  const decisionTree = require('./decision_tree.json'); // Import decision tree JSON
-  res.json(decisionTree); // Send JSON response
-});
+    // Helper function to find a node by ID
+    const findNodeById = (node, id) => {
+      if (node.id === id) return node;
+      if (node.children) {
+        for (const child of node.children) {
+          const result = findNodeById(child, id);
+          if (result) return result;
+        }
+      }
+      return null;
+    };
 
-// Fallback route for 404 errors
-app.use((req, res) => {
-  res.status(404).send('API endpoint not found');
-});
-app.get('/api/decision-tree/:id', (req, res) => {
-  const nodeId = req.params.id;
-  const findNodeById = (tree, id) => {
-    if (tree.id === id) return tree;
-    if (!tree.children) return null;
-    for (const child of tree.children) {
-      const result = findNodeById(child, id);
-      if (result) return result;
+    // Fetch the node requested by the client
+    const node = findNodeById(data, req.params.id);
+    if (node) {
+      res.json(node);
+    } else {
+      res.status(404).json({ error: "Node not found" });
     }
-    return null;
-  };
-  const node = findNodeById(decisionTree, parseInt(nodeId, 10));
-  if (node) {
-    res.json(node);
-  } else {
-    res.status(404).json({ message: 'Node not found' });
+  } catch (err) {
+    console.error("Error loading decision_tree.json:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Backend server is running on http://localhost:${PORT}`);
+  console.log(`Backend server running at http://localhost:${PORT}`);
 });
