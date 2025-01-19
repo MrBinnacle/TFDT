@@ -1,16 +1,14 @@
-# Compiled class file
+# Java-related files
 *.class
-
-# Log file
 *.log
-
-# BlueJ files
 *.ctxt
+hs_err_pid*
+replay_pid*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Archives
 *.jar
 *.war
 *.nar
@@ -19,6 +17,33 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-replay_pid*
+# Node.js dependencies
+node_modules/
+
+# Package lock files
+package-lock.json
+
+# Build output
+build/
+dist/
+
+# Public directory artifacts
+public/
+
+# Environment files (if applicable)
+.env
+
+# Frontend-specific
+Frontend/node_modules/
+Frontend/package-lock.json
+
+# Backend-specific
+Backend/node_modules/
+Backend/package-lock.json
+
+# VSCode files
+.vscode/
+
+# Operating System files
+.DS_Store
+Thumbs.db

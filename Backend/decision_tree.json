@@ -1,31 +1,194 @@
 {
-  "id": 1,
-  "name": "What is your primary goal?",
+  "name": "What is your primary goal or challenge?",
   "children": [
     {
-      "id": 2,
       "name": "Strategic Business Focus",
       "children": [
         {
-          "id": 4,
           "name": "Need to assess market competition?",
           "framework": "Porter's Five Forces"
         },
         {
-          "id": 5,
           "name": "Want to explore growth opportunities?",
           "framework": "Ansoff Matrix"
+        },
+        {
+          "name": "Need to assess internal and external environments?",
+          "children": [
+            {
+              "name": "Internal analysis",
+              "framework": "SWOT Analysis"
+            },
+            {
+              "name": "External analysis",
+              "framework": "PESTEL Analysis"
+            }
+          ]
+        },
+        {
+          "name": "Want to optimize resource allocation?",
+          "framework": "BCG Matrix"
+        },
+        {
+          "name": "Seeking sustainable competitive advantage?",
+          "framework": "VRIO Framework"
+        },
+        {
+          "name": "Need a broad business model visualization?",
+          "framework": "Business Model Canvas"
         }
       ]
     },
     {
-      "id": 3,
-      "name": "Operational Excellence",
+      "name": "Operational & Quality Improvement",
       "children": [
         {
-          "id": 6,
-          "name": "Focus on continuous improvement?",
+          "name": "Focus on continuous improvement and defect reduction?",
           "framework": "Lean Six Sigma"
+        },
+        {
+          "name": "Promote incremental, daily improvements?",
+          "framework": "Kaizen"
+        },
+        {
+          "name": "Prefer an iterative improvement cycle?",
+          "framework": "PDCA Cycle"
+        },
+        {
+          "name": "Address bottlenecks in processes?",
+          "framework": "Theory of Constraints (TOC)"
+        }
+      ]
+    },
+    {
+      "name": "Problem Solving & Decision Making",
+      "children": [
+        {
+          "name": "Need to uncover root causes?",
+          "children": [
+            {
+              "name": "Use iterative questioning",
+              "framework": "5 Whys"
+            },
+            {
+              "name": "Organize possible root causes by themes",
+              "framework": "Fishbone Diagram (Ishikawa)"
+            }
+          ]
+        },
+        {
+          "name": "Compare multiple options systematically?",
+          "framework": "Decision Matrix"
+        },
+        {
+          "name": "Explore diverse perspectives for problem-solving?",
+          "framework": "Six Thinking Hats"
+        }
+      ]
+    },
+    {
+      "name": "Project Management",
+      "children": [
+        {
+          "name": "Visualize tasks along a timeline?",
+          "framework": "Gantt Chart"
+        },
+        {
+          "name": "Need probabilistic task estimates?",
+          "framework": "PERT Chart"
+        },
+        {
+          "name": "Analyze task dependencies?",
+          "framework": "Critical Path Method (CPM)"
+        },
+        {
+          "name": "Clarify roles and responsibilities?",
+          "framework": "RACI Matrix"
+        }
+      ]
+    },
+    {
+      "name": "Marketing & Sales",
+      "children": [
+        {
+          "name": "Define product, price, place, promotion (+ people, process, physical evidence)?",
+          "framework": "Marketing Mix (4Ps/7Ps)"
+        },
+        {
+          "name": "Optimize the customer journey from awareness to action?",
+          "framework": "AIDA Model"
+        },
+        {
+          "name": "Segment, target, and position effectively?",
+          "framework": "STP Model"
+        },
+        {
+          "name": "Visualize customer experience touchpoints?",
+          "framework": "Customer Journey Map"
+        }
+      ]
+    },
+    {
+      "name": "Finance & Economics",
+      "children": [
+        {
+          "name": "Analyze financial efficiency?",
+          "framework": "DuPont Analysis"
+        },
+        {
+          "name": "Find the breakeven point?",
+          "framework": "Break-even Analysis"
+        }
+      ]
+    },
+    {
+      "name": "Organizational Behavior & Development",
+      "children": [
+        {
+          "name": "Align organizational elements?",
+          "framework": "McKinsey 7S Framework"
+        },
+        {
+          "name": "Manage organizational change?",
+          "framework": "ADKAR Model, Kotter’s 8-Step Process, or Lewin’s Change Model"
+        },
+        {
+          "name": "Analyze team dynamics?",
+          "framework": "Tuckman’s Stages of Group Development"
+        }
+      ]
+    },
+    {
+      "name": "Personal Development & Psychology",
+      "children": [
+        {
+          "name": "Set clear personal or team goals?",
+          "framework": "SMART Goals"
+        },
+        {
+          "name": "Understand motivation and needs?",
+          "framework": "Maslow’s Hierarchy of Needs"
+        }
+      ]
+    },
+    {
+      "name": "Innovation & Creativity",
+      "children": [
+        {
+          "name": "Brainstorm variations on existing ideas?",
+          "framework": "SCAMPER"
+        },
+        {
+          "name": "Solve inventive problems systematically?",
+          "framework": "TRIZ"
+        },
+        {
+          "name": "Create uncontested market space?",
+          "framework": "Blue Ocean Strategy"
+        },
+        {
+          "name": "Apply human-centered design?",
+          "framework": "Design Thinking"
         }
       ]
     }

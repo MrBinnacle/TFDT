@@ -1,51 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import QuestionCard from './components/QuestionCard';
-import ResultCard from './components/ResultCard';
+// Import required modules
+const express = require('express');
+const path = require('path');
+const cors = require('cors');
 
-const App = () => {
-  const [treeData, setTreeData] = useState(null);
-  const [currentNode, setCurrentNode] = useState(null);
-  const [error, setError] = useState(null);
+const app = express();
+const PORT = 3001; // Backend server will run on port 3001
 
-  useEffect(() => {
-    // Fetch decision tree JSON
-    fetch('/decision_tree.json')
-      .then((response) => response.json())
-      .then((data) => {
-        setTreeData(data);
-        setCurrentNode(data); // Start at the root node
-      })
-      .catch((err) => {
-        setError('Failed to load decision tree data.');
-      });
-  }, []);
+// Enable CORS for cross-origin requests
+app.use(cors());
 
-  if (error) {
-    return <p>{error}</p>;
+// Serve static files (if needed, e.g., from a public folder)
+app.use(express.static(path.join(__dirname, 'public')));
+
+// API Endpoint to fetch decision tree data
+app.get('/api/decision-tree', (req, res) => {
+  const decisionTree = require('./decision_tree.json'); // Import decision tree JSON
+  res.json(decisionTree); // Send JSON response
+});
+
+// Fallback route for 404 errors
+app.use((req, res) => {
+  res.status(404).send('API endpoint not found');
+});
+app.get('/api/decision-tree/:id', (req, res) => {
+  const nodeId = req.params.id;
+  const findNodeById = (tree, id) => {
+    if (tree.id === id) return tree;
+    if (!tree.children) return null;
+    for (const child of tree.children) {
+      const result = findNodeById(child, id);
+      if (result) return result;
+    }
+    return null;
+  };
+  const node = findNodeById(decisionTree, parseInt(nodeId, 10));
+  if (node) {
+    res.json(node);
+  } else {
+    res.status(404).json({ message: 'Node not found' });
   }
+});
 
-  if (!currentNode) {
-    return <p>Loading...</p>;
-  }
-
-  // Render QuestionCard or ResultCard
-  return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Decision Tree App</h1>
-      {currentNode.framework ? (
-        <ResultCard
-          framework={currentNode.framework}
-          onRestart={() => setCurrentNode(treeData)}
-        />
-      ) : (
-        <QuestionCard
-          question={currentNode.name}
-          options={currentNode.children}
-          onSelect={(node) => setCurrentNode(node)}
-        />
-      )}
-    </div>
-  );
-};
-
-export default App;
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Backend server is running on http://localhost:${PORT}`);
+});
