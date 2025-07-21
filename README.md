@@ -6,12 +6,15 @@ TFDT helps users explore decision frameworks and tools through an interactive de
 - Interactive navigation
 - Framework recommendations
 - Simple Node/React prototype
+- **New modular LLM API layer** (Next.js style routes)
 
 ## Project structure
 ```
 TFDT/
 ├── Backend/      # Express API prototype
 ├── Frontend/     # React demo UI
+├── app/          # Experimental Next.js API routes
+├── lib/          # Shared libraries (LLM clients)
 ├── data/         # JSON decision tree data
 └── docs/
     └── ARCHITECTURE.md  # Proposed redesign
@@ -29,4 +32,14 @@ npm start --prefix Backend
 # in a separate terminal start the frontend (requires a bundler like create-react-app)
 npm install --prefix Frontend
 npm start --prefix Frontend
+```
+
+### Example LLM call
+
+```
+POST /app/api/gpt/summarize
+{
+  "text": "What is SWOT analysis?",
+  "model": "gpt4"      # or claude3/local/templateRAG
+}
 ```
