@@ -1,0 +1,20 @@
+{
+  "name": "tfdt",
+  "version": "1.0.0",
+  "description": "TFDT helps users explore decision frameworks and tools through an interactive decision tree.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "zod": "^4.0.5"
+  }
+}
