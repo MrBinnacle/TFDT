@@ -1,30 +1,32 @@
 # Thinking Framework Decision Tree (TFDT)
 
-TFDT is a web application designed to help users navigate through decision trees and receive tailored recommendations for business frameworks and tools.
+TFDT helps users explore decision frameworks and tools through an interactive decision tree.
 
-## **Features**
-- Interactive decision tree navigation
-- Framework/tool recommendations based on user input
-- Clean and modular frontend and backend architecture
+## Features
+- Interactive navigation
+- Framework recommendations
+- Simple Node/React prototype
 
----
-
-## **Project Structure**
-```plaintext
+## Project structure
+```
 TFDT/
-│   .gitignore          # Files/directories Git should ignore
-│   LICENSE             # Licensing information for the project
-│   README.md           # Project description
-│   reorganize.ps1      # Script for automating reorganization
-│
-├── Backend/            # Backend logic
-│   ├── app.js          # Main backend script
-│   └── decision_tree.json  # Backend's copy of the decision tree
-│
-├── Frontend/           # React-based frontend application
-│   ├── public/         # Static assets served to the client
-│   │   └── decision_tree.json  # Decision tree file for the frontend
-│   ├── src/            # React source code
-│   │   ├── index.css   # CSS for the app
-│   │   ├── QuestionCard.js  # React component for questions
-│   │   └── ResultCard.js    # React component for results
+├── Backend/      # Express API prototype
+├── Frontend/     # React demo UI
+├── data/         # JSON decision tree data
+└── docs/
+    └── ARCHITECTURE.md  # Proposed redesign
+```
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the recommended system overhaul using Next.js, Supabase and tRPC.
+
+### Running locally
+
+```
+# start the backend API
+npm install --prefix Backend
+npm start --prefix Backend
+
+# in a separate terminal start the frontend (requires a bundler like create-react-app)
+npm install --prefix Frontend
+npm start --prefix Frontend
+```
