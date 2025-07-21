@@ -11,7 +11,7 @@ app.use(express.static(path.resolve("public")));
 // Helper function to load the decision tree from disk
 const loadTree = async () => {
   const file = await fs.readFile(
-    path.resolve("data/decision_tree.json"),
+    path.resolve(__dirname, "..", "data", "decision_tree.json"),
     "utf-8"
   );
   return JSON.parse(file);
@@ -46,7 +46,8 @@ app.get("/api/decision-tree/:id", async (req, res) => {
     };
 
     // Fetch the node requested by the client
-    const node = findNodeById(data, req.params.id);
+    const nodeId = parseInt(req.params.id, 10);
+    const node = findNodeById(data, nodeId);
     if (node) {
       res.json(node);
     } else {
@@ -58,7 +59,11 @@ app.get("/api/decision-tree/:id", async (req, res) => {
   }
 });
 
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Backend server running at http://localhost:${PORT}`);
-});
+// Start the server only if this file is executed directly
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`Backend server running at http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;

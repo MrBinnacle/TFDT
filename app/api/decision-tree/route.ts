@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { llmRouter } from '../llmRouter';
-import fs from 'fs/promises';
 import path from 'path';
+import fs from 'fs/promises';
 
 async function loadTree() {
   const file = await fs.readFile(
@@ -22,22 +21,17 @@ function findNodeById(node: any, id: number): any {
   return null;
 }
 
-export async function POST(req: NextRequest) {
-  const body = await req.json();
-  const { nodeId, model, task } = body;
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
+  const idParam = url.searchParams.get('id');
   try {
     const tree = await loadTree();
-    const node = findNodeById(tree, Number(nodeId));
-    if (!node) {
-      return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+    if (idParam) {
+      const node = findNodeById(tree, Number(idParam));
+      if (!node) return NextResponse.json({ error: 'Node not found' }, { status: 404 });
+      return NextResponse.json(node);
     }
-    const text = node.framework ? node.framework : node.name;
-    const result = await llmRouter({
-      model: model || 'gpt4',
-      task: task || 'summarize',
-      input: text,
-    });
-    return NextResponse.json(result);
+    return NextResponse.json(tree);
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
