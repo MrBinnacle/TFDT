@@ -5,16 +5,33 @@ const fs = require("fs").promises;
 const app = express();
 const PORT = 3001;
 
-// Serve static files
+// Serve static files (if any)
 app.use(express.static(path.resolve("public")));
+
+// Helper function to load the decision tree from disk
+const loadTree = async () => {
+  const file = await fs.readFile(
+    path.resolve("data/decision_tree.json"),
+    "utf-8"
+  );
+  return JSON.parse(file);
+};
+
+// Endpoint to fetch the root of the decision tree
+app.get("/api/decision-tree", async (_req, res) => {
+  try {
+    const data = await loadTree();
+    res.json(data);
+  } catch (err) {
+    console.error("Error loading decision_tree.json:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 // API endpoint to fetch a decision tree node by ID
 app.get("/api/decision-tree/:id", async (req, res) => {
   try {
-    // Load the decision tree JSON from the public folder
-    const data = JSON.parse(
-      await fs.readFile(path.resolve("public/decision_tree.json"), "utf-8")
-    );
+    const data = await loadTree();
 
     // Helper function to find a node by ID
     const findNodeById = (node, id) => {
