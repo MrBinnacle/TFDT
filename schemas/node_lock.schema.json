@@ -1,0 +1,7 @@
+{
+  "node_id": "string",
+  "locked_by_user_id": "string",
+  "lock_acquired_at": "string (date-time)",
+  "expires_at": "string (date-time)",
+  "active": "boolean"
+}
